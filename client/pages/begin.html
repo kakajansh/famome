@@ -1,0 +1,108 @@
+<template name="begin">
+{{#Scrollview}}
+    {{> Surface template="begin_html1" size="[undefined,undefined]"}}
+    {{> Surface template="begin_html2" size="[undefined,undefined]"}}
+    {{> Surface template="begin_html3" size="[undefined,undefined]"}}
+{{/Scrollview}}
+</template>
+
+<template name="begin_html1">
+<div class="content">
+{{#snippet lang="javascript"}}
+Router.configure({
+    layoutTemplate: 'layout',
+    yieldTemplates: {
+        'header': { to: 'header' },
+        'footer': { to: 'footer' }
+    }
+});
+
+Router.map(function() {
+    this.route('home', { path: '/' });
+
+    this.route('about', { });
+
+    this.route('login', { });
+
+    this.route('profile', { });
+});
+{{/snippet}}
+
+{{#snippet lang="spacebars"}}
+&lt;template name="layout">
+    {{ds}}#HeaderFooterLayout size="[undefined,undefined]" headerSize="44" footerSize="44"}}
+        {{ds}}> yield 'header'}}
+
+        {{ds}}#EdgeSwapper target="content" size="[undefined,undefined]" }}
+            {{ds}}>yield}}
+        {{ds}}/EdgeSwapper}}
+
+        {{ds}}> yield 'footer'}}
+    {{ds}}/HeaderFooterLayout}}
+&lt;/template>
+{{/snippet}}
+</div>
+</template>
+
+<template name="begin_html2">
+<div class="content">
+{{#snippet lang="spacebars"}}
+&lt;template name="header">
+    {{ds}}#Surface target="header" class="bar bar-header bar-positive"}}
+        &lt;h1 class="title">Twift app&lt;/h1>
+    {{ds}}/Surface}}
+&lt;/template>
+
+&lt;template name="footer">
+    {{ds}}#Surface target="footer"}}
+    &lt;div class="tabs-striped tabs-background-positive tabs-light">
+        &lt;div class="tabs">
+          &lt;a class="tab-item" href="/">
+            &lt;i class="icon ion-home">&lt;/i>
+          &lt;/a>
+          &lt;a class="tab-item" href="/about">
+            &lt;i class="icon ion-star">&lt;/i>
+          &lt;/a>
+          &lt;a class="tab-item" href="/login">
+            &lt;i class="icon ion-gear-a">&lt;/i>
+          &lt;/a>
+          &lt;a class="tab-item" href="/profile">
+            &lt;i class="icon ion-person">&lt;/i>
+          &lt;/a>
+        &lt;/div>
+    &lt;/div>
+    {{ds}}/Surface}}
+&lt;/template>
+{{/snippet}}
+</div>
+</template>
+
+<template name="begin_html3">
+<div class="content">
+{{#snippet lang="spacebars"}}
+&lt;template name="home">
+    {{ds}}#Surface size="[400,400]" class="red-bg" align="[.5,.5]" origin="[.5,.5]"}}
+        &lt;h1>Home Page &sdot; &lt;a href="/about">About&lt;/a>&lt;/h1>
+    {{ds}}/Surface}}
+&lt;/template>
+
+&lt;template name="about">
+    {{ds}}#Surface size="[400,400]" class="red-bg" align="[.5,.5]" origin="[.5,.5]"}}
+        &lt;h1>About Page &sdot; &lt;a href="/">Home&lt;/a>&lt;/h1>
+    {{ds}}/Surface}}
+&lt;/template>
+
+&lt;template name="login">
+    {{ds}}#Surface size="[400,400]" class="red-bg" align="[.5,.5]" origin="[.5,.5]"}}
+        &lt;h1>Login page&lt;/h1>
+    {{ds}}/Surface}}
+&lt;/template>
+
+&lt;template name="profile">
+    {{ds}}#Surface size="[400,400]" class="red-bg" align="[.5,.5]" origin="[.5,.5]"}}
+        &lt;h1>Profile page&lt;/h1>
+    {{ds}}/Surface}}
+&lt;/template>
+{{/snippet}}
+</div>
+</template>

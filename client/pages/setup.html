@@ -1,0 +1,50 @@
+<template name="setup">
+{{#Scrollview}}
+    {{> Surface template="_setup" size="[undefined, undefined]"}}
+{{/Scrollview}}
+</template>
+
+<template name="_setup">
+<div class="content">
+    <div class="ui icon message">
+        <i class="inbox icon"></i>
+        <div class="content">
+            <div class="header">Set up new project</div>
+
+        </div>
+    </div>
+    <div class="ui segment">
+        I think it is a good place to answer <b>How Famous-Views help us?</b> It serves us as bridge between two awesome frameworks. Because writing Meteor app in Famous style and vice virse brings with a lot of struggle. But with that package no-need to re-design your applications structure, just add 2 extra packages and you are ready to be famous.
+    </div>
+    <div class="ui segment">
+        Even this <b>FamoMe</b> app was built with help of <b>Famous-Views</b>. Page transitions, Scrollview, GridLayout vs.. Use tools you are familiar with & get the job done.
+    </div>
+    {{#prism language="bash"}}
+        # Go to your meteor projects folder
+        cd ~/meteor/
+
+        # Create new app
+        meteor create famome
+
+        # Open the app dir
+        cd famome
+        mkdir client & mkdir server & mkdir server & mkdir public
+
+        # Add packages
+        meteor add raix:famono gadicohen:famous-views 
+        
+        # only if you need
+        meteor add iron:router
+
+        # Create files
+        touch model.js && touch client/main.js && touch client/style.css && touch client/index.html && touch server/server.js && touch router.js
+
+        # Run meteor
+        meteor run
+
+        # Open up the project in editor
+        subl .
+    {{/prism}}
+    <div class="ui message">You can also check out extra page <a href="/alfred">Get things done using Alfred app</a></div>
+</div>
+</template>

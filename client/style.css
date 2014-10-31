@@ -1,0 +1,28 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700,400italic);
+
+body {
+    background-color: #e2e6e2;
+    font-family: 'Lato', sans-serif;
+}
+
+.panel {
+    background-color: #fff;
+}
+
+.content {
+    padding: 20px;
+    /*background-color: #d2f3bb;*/
+}
+
+.ui.panel {
+    border-radius: 0px;
+    border: 0px;
+}
+
+.panelItem {
+    background-color: #3a3b39;
+    /*padding: 10px;*/
+    color: #fff;
+    font-size: 1.5em;
+    line-height: 60px;
+}

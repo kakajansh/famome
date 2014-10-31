@@ -1,0 +1,86 @@
+<template name="leader">
+{{#Scrollview}}
+    {{> Surface template="leader_html" size="[undefined, undefined]"}}
+    {{> Surface template="leader_js" size="[undefined, undefined]"}}
+{{/Scrollview}}
+</template>
+
+<template name="leader_html">
+<div class="content">
+{{>leader_main}}
+{{>leader_links}}
+{{#snippet lang="spacebars"}}
+&lt;head>
+    &lt;title>Hello famous&lt;/title>
+    &lt;meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=no"> 
+&lt;/head>
+
+&lt;body>
+  {{ds}}> home}}
+&lt;/body>
+
+&lt;template name="home">
+    {{ds}}#Scrollview size="[500,undefined]" class="back" align="[.5, .5]" origin="[.5, .5]"}}
+        {{ds}}#Surface size="[undefined,100]"}}
+            &lt;div class="logo">&lt;/div>
+            &lt;h1 class="title">Leaderboard&lt;/h1>
+            &lt;div class="subtitle">Select a scientist to give them points&lt;/div>
+        {{ds}}/Surface}}
+
+        {{ds}}#famousEach players}}
+            {{ds}}> Surface template="player" size="[undefined, 60]"}}
+        {{ds}}/famousEach}}
+
+        {{ds}}> Surface template="leaderboard" size="[undefined, 100]"}}
+    {{ds}}/Scrollview}}
+&lt;/template>
+{{/snippet}}
+</div>
+</template>
+
+<template name="leader_js">
+<div class="content">
+{{#snippet lang="javascript"}}
+  var queue = [];
+
+  Template.player.rendered = function() {
+    var modifier = FView.from(this).modifier;
+
+    modifier.setTransform(Transform.translate(0,window.innerHeight));
+
+    queue.push(function() {
+      modifier.setTransform(
+        Transform.translate(0,0), { duration : 1000, curve: 'easeInOut' }
+      );
+    });
+  }
+
+  Meteor.setInterval(function() {
+    if (queue.length) queue.shift()();
+  }, 100);
+{{/snippet}}
+</div>
+</template>
+
+<template name="leader_main">
+    <div class="ui icon message">
+        <i class="inbox icon"></i>
+        <div class="content">
+            <div class="header">Leaderboard</div>
+            <p>Leaderboard app is the Meteor's base showcase app. So let's keep things easy and make it famous</p>
+        </div>
+    </div>
+</template>
+
+<template name="leader_links">
+    <div class="ui message">
+        <div class="ui divided horizontal list">
+            <div class="item">
+                <a href="">Github <i class="basic github icon"></i></a>
+            </div>
+            <div class="item">
+                <a href="http://step2.meteor.com" target="_blank">Demo Preview <i class="basic url icon"></i></a>
+            </div>
+        </div>
+    </div>
+</template>

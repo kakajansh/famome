@@ -1,0 +1,120 @@
+<template name="finish">
+{{#Scrollview}}
+    {{>Surface template="finish_html" size="[undefined,undefined]"}}
+    {{>Surface template="finish_js1" size="[undefined,undefined]"}}
+    {{>Surface template="finish_js2" size="[undefined,undefined]"}}
+{{/Scrollview}}
+</template>
+
+<template name="finish_html">
+<div class="content">
+{{#snippet lang="spacebars"}}
+&lt;template name="home">
+    {{ds}}#Scrollview size="[undefined,undefined]" tweets=tweets id="tweets"}}
+
+        {{ds}}>Surface template="input" size="[undefined,100]"  modifier="StateModifier"}}
+        
+        {{ds}}#if tweets}}
+            &lt;ul class="list">
+            {{ds}}#famousEach tweets}}
+                {{ds}}>Surface template="tweet" modifier="StateModifier" size="[undefined,60]"}}
+            {{ds}}/famousEach}}
+            &lt;/ul>
+        {{ds}}else}}
+            {{ds}}#Surface size="[200, 200]"}}
+                &lt;h1>Loading Tweets&lt;/h1>
+            {{ds}}/Surface}}
+        {{ds}}/if}}
+
+    {{ds}}/Scrollview}}
+&lt;/template>
+
+&lt;template name="tweet">
+    &lt;li class="item">{{ds}}tweet}}&lt;/li>
+&lt;/template>
+
+&lt;template name="input">
+    &lt;div class="list">
+      &lt;div class="item item-input-inset">
+        &lt;label class="item-input-wrapper">
+          &lt;input type="text" placeholder="Enter tag.." id="tag">
+        &lt;/label>
+        &lt;button class="button button-small" id="search">Search&lt;/button>
+      &lt;/div>
+    &lt;/div>
+&lt;/template>
+{{/snippet}}
+</div>
+</template>
+
+<template name="finish_js1">
+<div class="content">
+{{#snippet lang="javascript"}}
+Template.home.helpers({
+    tweets: function() {
+        tweets = Tweets.find();
+        if (tweets.count() > 0) {
+            return tweets;
+        } else { 
+            return false; 
+        }
+    }
+});
+
+var queue = [];
+Meteor.setInterval(function () {
+    if (queue.length) queue.shift()();
+}, 100);
+
+Template.tweet.rendered = function() {
+    var tweet = FView.from(this);
+
+    tweet.modifier.setTransform(Transform.translate(window.innerWidth,0));
+
+    queue.push(function() {
+        tweet.modifier.setTransform(Transform.translate(0,0),{
+            duration: 500, curve: 'easeOut'
+        });
+    });
+}
+{{/snippet}}
+</div>
+</template>
+
+<template name="finish_js2">
+<div class="content">
+{{#snippet lang="javascript"}}
+Template.input.rendered = function() {
+    fview = FView.from(this);
+    fview.surface.setProperties({"z-index": 10});
+}
+
+Template.input.events({
+    'click button#search': function(e, tmpl) {
+        var tag = $("#tag").val();
+
+        FView.byId("tweets").preventDestroy();
+
+        _.each(_.last(FView.byId('tweets').children).children, function(tweet) {
+            tweet = tweet.blazeView.fview.children[0];
+
+            queue.push(function() {
+                tweet.modifier.setTransform(Transform.translate(-window.innerWidth,0),{
+                    duration: 300, curve: 'easeOut'
+                }, function() {
+                    tweet.destroy();
+                });
+            });
+        });
+        
+        Meteor.call("getTweets", tag, 5, function(error, result) {
+            Tweets.remove({ });
+            _.each(result.statuses, function(tweet) {
+                Tweets.insert({ tweet: tweet.text });
+            });
+        });
+    }
+});
+{{/snippet}}
+</div>
+</template>

@@ -1,0 +1,104 @@
+<template name="home">
+    {{#Scrollview class="ui selection list"}}
+        {{> Surface template="_home" size="[undefined, 300]"}}
+        {{> Surface template="_like" size="[undefined, 400]"}}
+        {{> Surface template="_comments" size="[undefined, 270]"}}
+        {{#famousEach comments}}
+            {{>Surface template="_comment" size="[undefined,140]" class="item"}}
+        {{/famousEach}}
+    {{/Scrollview}}
+</template>
+
+<template name="_home">
+    <div class="content">
+        <div class="ui info message">
+          <i class="close icon"></i>
+          <div class="header">
+            Our aim creating FamoMe?
+          </div>
+          <ul class="list">
+            <li>Easily getting started with Famous-Views.</li>
+            <li>Did you know it's been a while?</li>
+          </ul>
+        </div>
+
+        <div class="ui info message">
+          <i class="close icon"></i>
+          <div class="header">
+            What are we going to learn?
+          </div>
+          <ul class="list">
+            <li>It's good to see you again.</li>
+            <li>Did you know it's been a while?</li>
+          </ul>
+        </div>
+    </div>
+</template>
+
+<template name="_like">
+<div class="content">
+    <h4 class="ui inverted black block header">
+      3 Simply ways to appreciate our work
+    </h4>
+
+<div class="ui three connected items" align="center">
+  <div class="row">
+    <div class="item">
+      <div class="content">
+        <i class="circular big github icon"></i>
+        <div class="name"><a href="">Github</a></div>
+        <p class="description">This dog has some things going for it. Its pretty cute and looks like it'd be fun to cuddle up with.</p>
+      </div>
+    </div>
+    <div class="item">
+      <div class="content">
+        <i class="circular big comment icon"></i>
+        <div class="name">Comment</div>
+        <p class="description">Sometimes its more important to have a dog you know you can trust. But not every dog is trustworthy, you can tell by looking at its smile.</p>
+      </div>
+    </div>
+    <div class="item">
+      <div class="content">
+        <i class="circular big share icon"></i>
+        <div class="name">Share</div>
+        <p class="description">Silly dogs can be quite fun to have as companions. You never know what kind of ridiculous thing they will do.</p>
+      </div>
+    </div>
+  </div>
+</div>
+    {{#prism language="javascript"}}
+        function main() {
+          console.log("Happy Coding!");
+        }
+    {{/prism}}
+</div>
+</template>
+
+<template name="_comments">
+  <div class="content">
+    <div class="ui horizontal icon divider">
+      <i class="circular heart icon"></i>
+    </div>
+    <form class="ui reply form">
+      <div class="field">
+        <textarea style="height:80px !important" id="body"></textarea>
+      </div>
+      <button id="reply" class="ui fluid button black labeled">Add Reply</button>
+    </form>
+</div>
+</template>
+
+<template name="_comment">
+<div class="content">
+<div class="ui raised segment">
+<div class="ui grid">
+    <div class="ui two wide column">
+      <img class="ui circular image" src="/images/logo.png" width="100%">
+    </div>
+    <div class="ui thirteen wide column">
+        <h3>{{body}}</h3>
+    </div>
+</div>
+</div>
+</div>
+</template>

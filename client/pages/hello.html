@@ -1,0 +1,81 @@
+<template name="hello">
+{{#Scrollview}}
+    {{> Surface template="hello_html1" size="[undefined, 880]"}}
+    {{> Surface template="hello_html2" size="[undefined, 300]"}}
+{{/Scrollview}}
+</template>
+
+<!-- &lt; -->
+<!-- {{ds}} -->
+<template name="hello_html1">
+<div class="content">
+    {{>hello_main}}
+    {{>hello_links}}
+    <div class="ui segment">
+        There are 2 ways to define famous components: 1. Inline 2. Inclusion.
+        <br><br>
+        <b>Inline:</b> <div class="ui label">{{ds}}#famous}}content{{ds}}/famous}}</div>
+        <br><br>
+        <b>Inclusion:</b> <div class="ui label">{{ds}}>famous template='name'}}</div>
+        <br><br>
+        Their usage and difference shown below.
+    </div>
+{{#snippet lang="spacebars"}}
+&lt;head>
+    &lt;title>Hello famous&lt;/title>
+    {{ds}}!-- for mobile compability --}}
+    &lt;meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=no"> 
+&lt;/head>
+
+&lt;body>
+    {{ds}}!-- Don't put your famous stuff here. --}}
+    {{ds}}> home}}
+&lt;/body>
+
+&lt;template name="home">
+    {{ds}}!-- 1. Inline --}}
+    {{ds}}#Surface size="[400, 400]" class="red-bg" align="[.5, .5]" origin="[.5, .5]"}}
+        &lt;h1>Hello world!&lt;/h1>
+    {{ds}}/Surface}}
+&lt;/template>
+{{/snippet}}
+</div>
+</template>
+
+<template name="hello_html2">
+<div class="content">
+{{#snippet lang="spacebars"}}
+&lt;template name="home">
+    {{ds}}!-- 2. Inclusion --}}
+    {{ds}}> Surface template="_home" size="[400, 400]" class="red-bg" align="[.5, .5]" origin="[.5, .5]"}}
+&lt;/template>
+
+&lt;template name="_home">
+    &lt;h1>Hello world!&lt;/h1>
+&lt;/template>
+{{/snippet}}
+</div>
+</template>
+
+<template name="hello_main">
+    <div class="ui icon message">
+        <i class="inbox icon"></i>
+        <div class="content">
+            <div class="header">Hello World!</div>
+            <p>As a basic of every programming language, framework.. we are going to begin with saying Hello to the World.</p>
+        </div>
+    </div>
+</template>
+
+<template name="hello_links">
+    <div class="ui message">
+        <div class="ui divided horizontal list">
+            <div class="item">
+                <a href="">Github <i class="basic github icon"></i></a>
+            </div>
+            <div class="item">
+                <a href="http://step1.meteor.com" target="_blank">Demo Preview <i class="basic url icon"></i></a>
+            </div>
+        </div>
+    </div>
+</template>

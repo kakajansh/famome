@@ -1,0 +1,129 @@
+<template name="twitter">
+    {{#Scrollview}}
+        {{>Surface template="twitter_js1" size="[undefined, undefined]"}}
+        {{>Surface template="twitter_html1" size="[undefined, undefined]"}}
+        {{>Surface template="twitter_js2" size="[undefined, undefined]"}}
+        {{>Surface template="twitter_js3" size="[undefined, undefined]"}}
+    {{/Scrollview}}
+</template>
+
+<template name="twitter_js1">
+<div class="content">
+{{#snippet lang="javascript"}}
+meteor add accounts-twitter // Twitter authorization
+meteor add accounts-ui      // Accounts ui
+meteor add meteorhacks-npm  // Npm integration
+{{/snippet}}
+
+{{#snippet lang="javascript"}}
+{
+  "twit": "1.1.18"
+}
+{{/snippet}}
+</div>
+</template>
+
+<template name="twitter_html1">
+<div class="content">
+{{#snippet lang="spacebars"}}
+&lt;template name="login">
+    {{ds}}#Surface size="[400,400]" class="red-bg" align="[.5,.5]" origin="[.5,.5]"}}
+        &lt;h1>Please login&lt;/h1>
+        {{ds}}>loginButtons}}
+    {{ds}}/Surface}}
+&lt;/template>
+
+&lt;template name="profile">
+    {{ds}}#Surface size="[400,400]" align="[.5,.5]" origin="[.5,.5]"}}
+        {{ds}}#with currentUser}}
+            &lt;div class="card" align="center">
+              &lt;div class="item item-text-wrap">
+                &lt;img src="{{ds}}services.twitter.profile_image_url}}" alt="" width="80%">
+              &lt;/div>
+              &lt;div class="item item-divider">
+                {{ds}}profile.name}} &sdot; @{{ds}}services.twitter.screenName}}
+              &lt;/div>
+            &lt;/div>
+        {{ds}}/with}}
+    {{ds}}/Surface}}
+&lt;/template>
+{{/snippet}}
+
+{{#snippet lang="javascript"}}
+this.route('profile', {
+    path: '/profile',
+    onAfterAction: function() {
+        if (Meteor.user()) {
+            Session.set("pageTitle", Meteor.user().profile.name);
+        } else {
+            this.redirect('login')
+        }
+    }
+});
+{{/snippet}}
+<img src="/twitter.png" width="300px">
+</div>
+</template>
+
+<template name="twitter_js2">
+<div class="content">
+{{#snippet lang="javascript"}}
+var Twit = Meteor.npmRequire('twit');
+
+T = new Twit({
+    consumer_key: 'rgQLtMtTd8F5ognwgFGtgC2yN',
+    consumer_secret: 'oBZ9BaagZNoDE08ptzqkhAJLIiLEow2IaVTDQCfNH9yiVSMKRA',
+    access_token: '2796023118-flIqTUDXq3Ujv4AbLchPvyWSYpMT2PPRPQ4FlA3',
+    access_token_secret: 'gePzF4AIB4irmnHXW5ajEL7Ni4srIxBtLrNRH0fUj2Zel'
+});
+
+Meteor.methods({
+    getTweets: function (tag, count) {
+        var tag = tag || "meteorjs";
+        var count = count || 5;
+        var q = "#" + tag + " since:2011-11-11"
+
+        console.log(tag, count, q)
+
+        var tweets = Async.runSync(function(done) {
+            T.get('search/tweets', { q: q, count: count }, function(err, data, response) {
+                if (err) console.info(err);
+                // console.info(data);
+                done(null, data);
+            });
+        });
+
+        return tweets.result;
+    }
+});
+{{/snippet}}
+</div>
+</template>
+
+<template name="twitter_js3">
+<div class="content">
+{{#snippet lang="javascript"}}
+Meteor.startup(function () {
+    StateModifier = famous.modifiers.StateModifier;
+    Surface = famous.core.Surface;
+    Transform = famous.core.Transform;
+    Easing = famous.transitions.Easing;
+
+    Meteor.call("getTweets", function(error, result) {
+        _.each(result.statuses, function(tweet) {
+            Tweets.insert({ tweet: tweet.text });
+            console.log("inserted " + tweet.text)
+        });
+    });
+});
+{{/snippet}}
+
+{{#snippet lang="javascript"}}
+[Log] inserted RT @ch_pl: If you want to start with #meteorjs, 8 first chapters free ! https://t.co/ZGtItbbwZ0 via @JavaScriptDaily #javascript (main.js, line 51)
+[Log] inserted RT @meteorjs: We're delighted today to announce #meteorjs 1.0 https://t.co/NmlRs6w8E0 (main.js, line 51)
+[Log] inserted RT @meteorjs: For 1 week, you can get a free launch edition of the @DiscoverMeteor book on us, in celebration of #meteorjs 1.0 https://t.co… (main.js, line 51)
+[Log] inserted RT @meteorjs: We're delighted today to announce #meteorjs 1.0 https://t.co/NmlRs6w8E0 (main.js, line 51)
+[Log] inserted RT @meteorjs: For 1 week, you can get a free launch edition of the @DiscoverMeteor book on us, in celebration of #meteorjs 1.0 https://t.co… (main.js, line 51)
+{{/snippet}}
+</div>
+</template>

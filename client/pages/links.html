@@ -1,0 +1,23 @@
+<template name="links">
+    {{#Scrollview}}
+        {{>Surface template="links_html" size="[undefined,undefined]"}}
+        {{>Surface template="links_js" size="[undefined,undefined]"}}
+    {{/Scrollview}}
+</template>
+
+<template name="links_html">
+<div class="content">
+{{#snippet lang="spacebars"}}
+
+{{/snippet}}
+</div>
+</template>
+
+
+<template name="links_js">
+<div class="content">
+{{#snippet lang="js"}}
+
+{{/snippet}}
+</div>
+</template>

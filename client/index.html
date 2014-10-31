@@ -1,0 +1,79 @@
+<head>
+    <title>FamoMe</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=no"> 
+</head>
+
+<body>
+</body>
+
+<template name="layout">
+{{#HeaderFooterLayout id="layout" size="[undefined,undefined]" headerSize="350" footerSize="0" direction="X"}}
+    {{> yield 'header'}}
+
+    {{#GridLayout dimensions="[2,1]" size="[undefined,undefined]" target="content"}}
+        {{#EdgeSwapper target="content" size="[undefined,undefined]"}}
+            {{>yield}}
+        {{/EdgeSwapper}}
+        {{>View template="main" size="[undefined, undefined]"}}
+    {{/GridLayout}}
+{{/HeaderFooterLayout}}
+</template>
+
+<template name="main">
+    {{#Surface size="[undefined, undefined]" align="[.5, .5]" origin="[.5, .5]" class="panel"}}
+        <iframe src="http://twif.meteor.com" frameborder="" width="100%" height="100%"></iframe>
+    {{/Surface}}
+</template>
+
+<template name="header">
+    {{#View target="header" size="[350, undefined]"}}
+        {{#Surface size="[350, undefined]" class="panel"}}{{/Surface}}
+        {{> Surface template="panelItem" size="[350, undefined]"}}
+    {{/View}}
+</template>
+
+<template name="panelItem">
+    <div style="padding: 20px" align="center">
+        <img src="/logo3.png" class="ui circular image" width="100px">
+        <h1>FamoMe</h1>
+    </div>
+    <div class="ui red pointing secondary vertical panel fluid menu">
+      <a class="item" href="/">
+        <i class="basic home icon"></i>
+        Introduction
+      </a>
+      <a class="active item" href="/setup">
+        <i class="basic settings icon"></i>
+        Set up new project
+      </a>
+      <a class="item" href="/hello">
+        <i class="basic globe icon"></i>
+        First views : Hello World!
+      </a>
+      <a class="item" href="/leader">
+        <i class="basic top list icon"></i>
+        Leaderboad example
+      </a>
+      <div class="item">
+        <i class="basic twitter icon"></i> Twift app
+        <div class="menu">
+          <a class="item" href="/begin" >Build app layout</a>
+          <a class="item" href="/modify">Some modifications</a>      
+          <a class="item" href="/twitter" >Twitter integration</a>
+          <a class="item" href="/finish">Finishing the app</a>
+          <a class="item" href="/container">ContainerSurface</a>
+        </div>
+      </div>
+      <a class="item" href="#">
+        <i class="basic cart icon"></i>
+        Localmarket (coming soon)
+      </a>
+      <div class="item">
+        <b>More</b>
+        <div class="menu">
+          <a href="/alfred" class="item">Get things done using Alfred app</a>
+          <a href="/links" class="item">Links you should check out</a>
+        </div>
+      </div>
+    </div>
+</template>

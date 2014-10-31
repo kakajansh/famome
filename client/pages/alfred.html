@@ -1,0 +1,80 @@
+<template name="alfred">
+{{#Scrollview}}
+    {{> Surface template="_alfred0" size="[undefined, undefined]"}}
+    {{> Surface template="_alfred1" size="[undefined, undefined]"}}
+    {{> Surface template="_alfred2" size="[undefined, undefined]"}}
+    {{> Surface template="_alfred3" size="[undefined, undefined]"}}
+    {{> Surface template="_alfred4" size="[undefined, undefined]"}}
+    {{> Surface template="_alfred5" size="[undefined, undefined]"}}
+    {{> Surface template="_alfred" size="[undefined, undefined]"}}
+{{/Scrollview}}
+</template>
+
+<template name="_alfred0">
+<div class="content">
+    <img src="/alfred/0.png" alt="" width="100%">
+</div>
+</template>
+
+<template name="_alfred1">
+<div class="content">
+    <img src="/alfred/1.png" alt="" width="100%">
+</div>
+</template>
+
+<template name="_alfred2">
+<div class="content">
+    <img src="/alfred/2.png" alt="" width="100%">
+</div>
+</template>
+
+<template name="_alfred3">
+<div class="content">
+    <img src="/alfred/3.png" alt="" width="100%">
+</div>
+</template>
+
+<template name="_alfred4">
+<div class="content">
+    <img src="/alfred/4.png" alt="" width="100%">
+</div>
+</template>
+
+<template name="_alfred5">
+<div class="content">
+    <img src="/alfred/5.png" alt="" width="100%">
+</div>
+</template>
+
+<template name="_alfred">
+<div class="content">
+{{#snippet lang="javascript"}}
+# Go to meteor projects folder
+cd ~/gmeteor
+
+# Create new app
+meteor create {query}
+
+# Delete files
+rm -rf ~/gmeteor/{query}/*
+
+# Create dir
+cd {query} && mkdir client && mkdir server && mkdir public
+
+# Add ios platform
+meteor add-platform ios
+
+# Add famous packages
+meteor add raix:famono gadicohen:famous-views iron:router@1.0.0-pre5
+
+# Create files
+touch model.js && touch client/main.js && touch client/style.css && touch client/index.html && touch server/server.js && touch router.js
+
+# run 
+# meteor run
+
+# open in editor
+subl .
+{{/snippet}}
+</div>
+</template>

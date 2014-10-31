@@ -1,0 +1,150 @@
+<template name="modify">
+    {{#Scrollview}}
+        {{>Surface template="modify_js1" size="[undefined,undefined]"}}
+        {{>Surface template="modify_js2" size="[undefined,undefined]"}}
+        {{>Surface template="modify_js3" size="[undefined,undefined]"}}
+        {{>Surface template="modify_js4" size="[undefined,undefined]"}}
+        {{>Surface template="modify_js5" size="[undefined,undefined]"}}
+    {{/Scrollview}}
+</template>
+
+<template name="modify_js1">
+<div class="content">
+{{#snippet lang="javascript"}}
+// ROUTER //
+navbar = null;
+
+Template.footer.rendered = function() {
+    this.autorun(function() {
+        navbar = $('.tabs');
+        navbarActive(Router.current().options.route.path());
+    });
+}
+
+var navbarActive = function(path) {
+    if (!navbar) return;
+    if (this.path) path = this.path;
+
+    navbar.find('a.active').removeClass('active');
+    navbar.find('a[href="'+path+'"]').addClass('active');
+}
+
+// Configure your Router, so it would run after every route action
+
+Router.configure({
+    onAfterAction: navbarActive,
+    layoutTemplate: 'layout',
+    yieldTemplates: {
+        'header': { to: 'header' },
+        'footer': { to: 'footer' }
+    }
+});
+
+{{/snippet}}
+</div>
+</template>
+
+<template name="modify_js2">
+<div class="content">
+{{#snippet lang="javascript"}}
+// DEFAULTS //
+Session.setDefault('pageTitle', 'Home Page');
+
+Template.header.helpers({
+    pageTitle: function() {
+        return Session.get("pageTitle");
+    }
+})
+
+{{/snippet}}
+
+{{#snippet lang="spacebars"}}
+&lt;template name="header">
+    {{ds}}#Surface target="header" class="bar bar-header bar-positive"}}
+        &lt;!-- &lt;h1 class="title">Twift app&lt;/h1> -->
+    {{ds}}/Surface}}
+&lt;/template>
+{{/snippet}}
+</div>
+</template>
+
+<template name="modify_js3">
+<div class="content">
+{{#snippet lang="javascript"}}
+
+Template.header.rendered = function() {
+    var fview = FView.from(this).view;
+
+    var titleModifier = new StateModifier();
+    var titleSurface  = new Surface({
+        content: Session.get("pageTitle"),
+        properties: {
+            fontSize: '24px',
+            textAlign: 'center',
+            color: '#fff',
+            lineHeight: '44px',
+            zIndex: 10
+        }
+    });
+
+    fview.header.add(titleModifier).add(titleSurface)
+
+    this.autorun(function() {
+        titleSurface.setContent(Session.get("pageTitle"))
+
+        titleModifier.setTransform(
+            Transform.translate(0, -100, 0),
+            { duration : 300, curve: Easing.outExpo }
+        );
+        titleModifier.setTransform(
+            Transform.translate(0, 0, 0),
+            { duration : 300, curve: Easing.outExpo }
+        );
+    })
+}
+{{/snippet}}
+</div>
+</template>
+
+<template name="modify_html1">
+<div class="content">
+
+</div>
+</template>
+
+<template name="modify_js4">
+<div class="content">
+{{#snippet lang="spacebars"}}
+{{ds}}#EdgeSwapper  target="content" 
+                inTransition=inO 
+                outTransition=outO 
+                overlap=true 
+                size="[undefined,undefined]" }}
+    {{ds}}>yield}}
+{{ds}}/EdgeSwapper}}
+{{/snippet}}
+{{#snippet lang="javascript"}}
+Template.layout.helpers({
+    inO: function() {
+        return {curve: Easing.inOutBack, duration: 500}
+    },
+    outO: function() {
+        return {duration: 300}
+    }
+});
+{{/snippet}}
+</div>
+</template>
+
+<template name="modify_js5">
+<div class="content">
+{{#snippet lang="javascript"}}
+Meteor.startup(function () {
+    StateModifier = famous.modifiers.StateModifier;
+    Surface = famous.core.Surface;
+    Transform = famous.core.Transform;
+    Easing = famous.transitions.Easing;
+});
+{{/snippet}}
+</div>
+</template>

@@ -1,0 +1,56 @@
+<template name="container">
+{{#Scrollview}}
+    {{>Surface template="container_html" size="[undefined,undefined]"}}
+    {{>Surface template="container_js1" size="[undefined,undefined]"}}
+{{/Scrollview}}
+</template>
+
+<template name="container_html">
+<div class="content">
+{{#snippet lang="spacebars"}}
+&lt;template name="layout">
+{{ds}}#Surface align="[.5, .5]" origin="[.5, .5]" size="[400,800]"}}
+    &lt;img src="/img/iphone.svg" alt="" width="100%">
+{{ds}}/Surface}}
+
+{{ds}}#ContainerSurface size="[338,600]" align="[.5, .51]" origin="[.5, .5]" overflow="hidden" class="main"}}
+    {{ds}}#HeaderFooterLayout id="layout" size="[undefined,undefined]" headerSize="44" footerSize="44"}}
+
+        {{ds}}> yield 'header'}}
+
+        {{ds}}#EdgeSwapper  target="content" 
+                        inTransition=inO 
+                        outTransition=outO 
+                        overlap=true 
+                        size="[undefined,undefined]" }}
+            {{ds}}>yield}}
+        {{ds}}/EdgeSwapper}}
+
+        {{ds}}> yield 'footer'}}
+    {{ds}}/HeaderFooterLayout}}
+{{ds}}/ContainerSurface}}
+&lt;/template>
+{{/snippet}}
+
+{{#snippet lang="spacebars"}}
+body {
+    background: #8fcdf2;
+    background: url('/back.jpg');
+    background-size: cover;
+    font-family: 'Lato', sans-serif !important;
+}
+
+.main {
+    background: #f27f76;
+}
+{{/snippet}}
+</div>
+</template>
+
+<template name="container_js1">
+<div class="content">
+{{#snippet lang="javascript"}}
+
+{{/snippet}}
+</div>
+</template>
